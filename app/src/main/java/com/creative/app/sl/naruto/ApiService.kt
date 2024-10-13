@@ -8,6 +8,8 @@ private val retrofit = Retrofit.Builder().baseUrl("https://narutodb.xyz/api/")
     .addConverterFactory(GsonConverterFactory.create())
     .build()
 
+    val narutoService = retrofit.create(ApiService::class.java)
+
 interface ApiService{
     @GET("character")
     suspend fun getCharacters(): NarutoResponse
