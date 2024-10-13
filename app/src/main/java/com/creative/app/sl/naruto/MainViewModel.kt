@@ -18,16 +18,20 @@ class MainViewModel: ViewModel(){
     private fun fetchCharacters(){
         viewModelScope.launch {
             try {
+                // Fetching characters from API
                 val response = narutoService.getCharacters()
+                println("API Response: $response") // Log API response
+
                 _charactersState.value = _charactersState.value.copy(
                     list = response.characters,
                     loading = false,
                     error = null
                 )
-            }catch (e : Exception){
+            } catch (e: Exception) {
+                println("API Error: ${e.message}") // Log error
                 _charactersState.value = _charactersState.value.copy(
                     loading = false,
-                    error = "Error fetching Characters ${e.message}"
+                    error = "Error fetching Characters: ${e.message}"
                 )
             }
         }
