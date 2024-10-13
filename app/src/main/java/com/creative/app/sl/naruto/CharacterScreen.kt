@@ -1,7 +1,9 @@
 package com.creative.app.sl.naruto
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -14,10 +16,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImagePainter.State.Empty.painter
+import coil.compose.rememberAsyncImagePainter
 
 @Composable
 fun CharacterScreen(modifier: Modifier = Modifier){
@@ -59,6 +64,15 @@ fun NarutoItem(naruto: Naruto){
         .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally)
     {
+        if(naruto.images.isNotEmpty()) {
+            Image(
+                painter = rememberAsyncImagePainter(naruto.images[0]),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .aspectRatio(1f)
+            )
+        }
         Text(
             text = naruto.name,
             color = Color.Black,
